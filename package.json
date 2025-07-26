@@ -1,0 +1,32 @@
+{
+  "name": "autism-tests",
+  "version": "1.0.0",
+  "description": "A comprehensive platform for autism assessment and testing tools",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/ tests/",
+    "build": "echo 'Build completed'",
+    "serve": "node src/server.js"
+  },
+  "keywords": [
+    "autism",
+    "assessment",
+    "testing",
+    "psychology",
+    "healthcare",
+    "screening"
+  ],
+  "author": "Autism Tests Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "eslint": "^8.41.0"
+  }
+}
