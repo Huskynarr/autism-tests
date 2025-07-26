@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autism Tests Platform</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <h1 class="logo">🧠 Autism Tests Platform</h1>
+                    <nav class="nav">
+                        <a href="#home" class="nav-link active">Home</a>
+                        <a href="#tests" class="nav-link">Tests</a>
+                        <a href="#about" class="nav-link">About</a>
+                        <a href="#resources" class="nav-link">Resources</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="main">
+            <!-- Home Section -->
+            <section id="home" class="section active">
+                <div class="container">
+                    <div class="hero">
+                        <h2 class="hero-title">Comprehensive Autism Assessment Tools</h2>
+                        <p class="hero-subtitle">
+                            Professional-grade screening tools for autism spectrum disorders. 
+                            Evidence-based assessments designed to support early identification and intervention.
+                        </p>
+                        <div class="hero-actions">
+                            <button class="btn btn-primary" onclick="showSection('tests')">
+                                Start Assessment
+                            </button>
+                            <button class="btn btn-secondary" onclick="showSection('about')">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Evidence-Based</h3>
+                            <p>Scientifically validated assessment tools used by healthcare professionals worldwide</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>Privacy Focused</h3>
+                            <p>Your data is protected. Assessments are anonymous and secure</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h3>Quick & Easy</h3>
+                            <p>Complete assessments in 10-20 minutes with immediate results</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3>Age-Appropriate</h3>
+                            <p>Different tools for different age groups, from toddlers to adults</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tests Section -->
+            <section id="tests" class="section">
+                <div class="container">
+                    <h2 class="section-title">Available Assessments</h2>
+                    <p class="section-subtitle">Choose the appropriate assessment tool based on age and requirements</p>
+                    
+                    <div id="tests-container" class="tests-grid">
+                        <!-- Tests will be loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assessment Section -->
+            <section id="assessment" class="section">
+                <div class="container">
+                    <div class="assessment-container">
+                        <div class="assessment-header">
+                            <h2 id="assessment-title">Assessment</h2>
+                            <div class="progress-bar">
+                                <div id="progress-fill" class="progress-fill"></div>
+                            </div>
+                            <div id="progress-text" class="progress-text">Question 1 of 10</div>
+                        </div>
+
+                        <div id="question-container" class="question-container">
+                            <!-- Questions will be loaded dynamically -->
+                        </div>
+
+                        <div class="assessment-actions">
+                            <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>
+                                Previous
+                            </button>
+                            <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()" disabled>
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results" class="section">
+                <div class="container">
+                    <div class="results-container">
+                        <h2 class="section-title">Assessment Results</h2>
+                        <div id="results-content">
+                            <!-- Results will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="section">
+                <div class="container">
+                    <h2 class="section-title">About Autism Assessments</h2>
+                    <div class="about-content">
+                        <div class="about-text">
+                            <h3>What is Autism Spectrum Disorder?</h3>
+                            <p>
+                                Autism Spectrum Disorder (ASD) is a neurodevelopmental condition characterized by 
+                                differences in social communication and interaction, as well as restricted and 
+                                repetitive patterns of behavior, interests, or activities.
+                            </p>
+                            
+                            <h3>Importance of Early Screening</h3>
+                            <p>
+                                Early identification and intervention can significantly improve outcomes for 
+                                individuals with autism. These screening tools help identify potential signs 
+                                that may warrant further professional evaluation.
+                            </p>
+
+                            <div class="disclaimer">
+                                <h4>⚠️ Important Disclaimer</h4>
+                                <p>
+                                    These tools are for screening purposes only and do not provide a diagnosis. 
+                                    A comprehensive evaluation by qualified healthcare professionals is required 
+                                    for autism diagnosis.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resources Section -->
+            <section id="resources" class="section">
+                <div class="container">
+                    <h2 class="section-title">Resources & Support</h2>
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <h3>Professional Support</h3>
+                            <ul>
+                                <li>Find qualified autism specialists</li>
+                                <li>Diagnostic evaluation centers</li>
+                                <li>Early intervention services</li>
+                            </ul>
+                        </div>
+                        <div class="resource-card">
+                            <h3>Educational Resources</h3>
+                            <ul>
+                                <li>Understanding autism spectrum</li>
+                                <li>Communication strategies</li>
+                                <li>Behavioral interventions</li>
+                            </ul>
+                        </div>
+                        <div class="resource-card">
+                            <h3>Community Support</h3>
+                            <ul>
+                                <li>Support groups for families</li>
+                                <li>Online communities</li>
+                                <li>Advocacy organizations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <p>&copy; 2024 Autism Tests Platform. Educational and screening purposes only.</p>
+                    <div class="footer-links">
+                        <a href="#privacy">Privacy Policy</a>
+                        <a href="#terms">Terms of Service</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/assets/app.js"></script>
+</body>
+</html>
