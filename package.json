@@ -4,13 +4,13 @@
   "description": "A comprehensive platform for autism assessment and testing tools",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "node src/index.js",
+    "start": "npm run dev",
+    "dev": "cp -r assets public/assets && live-server public --port=3000 --no-browser",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint src/ tests/",
-    "build": "echo 'Build completed'",
-    "serve": "node src/server.js"
+    "build": "rm -rf dist && mkdir dist && cp -r public/* dist/ && cp -r assets dist/",
+    "serve": "live-server dist --port=5000 --no-browser"
   },
   "keywords": [
     "autism",
@@ -22,11 +22,10 @@
   ],
   "author": "Autism Tests Team",
   "license": "MIT",
-  "dependencies": {
-    "express": "^4.18.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "jest": "^29.5.0",
-    "eslint": "^8.41.0"
+    "eslint": "^8.41.0",
+    "live-server": "^1.2.2"
   }
 }
