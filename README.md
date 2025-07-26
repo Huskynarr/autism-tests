@@ -16,7 +16,42 @@ A comprehensive web-based platform for autism spectrum disorder (ASD) assessment
 - **Mobile-Responsive**: Works on desktop, tablet, and mobile devices
 - **Professional-Grade**: Based on scientifically validated instruments
 
+
 ## 🚀 Quick Start
+
+## 🏗️ Build & Deploy (GitHub Pages)
+
+### Statisches Deployment (empfohlen für GitHub Pages)
+
+1. **Build-Verzeichnis vorbereiten:**
+   - Kopiere den Inhalt von `public/` und das gesamte Verzeichnis `assets/` in ein neues Verzeichnis, z.B. `dist/`.
+   - Beispiel:
+     ```bash
+     mkdir -p dist/assets
+     cp -r public/* dist/
+     cp -r assets dist/
+     ```
+
+2. **GitHub Pages konfigurieren:**
+   - Gehe zu den Repository-Einstellungen → Pages.
+   - Wähle als Quelle das Verzeichnis `/dist` (oder `/docs`, je nach Workflow).
+   - Alternativ kannst du den Inhalt direkt in das `/docs`-Verzeichnis kopieren und dieses als Pages-Root nutzen.
+
+3. **Wichtige Hinweise:**
+   - Es ist kein Node.js-Server nötig, alles läuft clientseitig im Browser.
+   - Die Startdatei muss `index.html` heißen.
+   - Die Pfade zu CSS/JS/Assets müssen relativ oder ab Root (`/assets/...`) sein.
+   - API-Endpunkte werden nicht benötigt, alle Logik läuft im Browser.
+
+4. **Optional: Automatisierung**
+   - Du kannst ein einfaches Skript in `package.json` ergänzen:
+     ```json
+     "scripts": {
+       ...
+       "build:static": "mkdir -p dist/assets && cp -r public/* dist/ && cp -r assets dist/"
+     }
+     ```
+   - Dann einfach `npm run build:static` ausführen und `/dist` deployen.
 
 ### Prerequisites
 

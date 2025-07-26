@@ -10,15 +10,37 @@ class TestEngine {
     }
 
     initializeDefaultTests() {
-        // Autism Spectrum Quotient (AQ) Test
+        // Autism Spectrum Quotient (AQ-50) Test
         this.registerTest({
-            id: 'aq-test',
-            name: 'Autism Spectrum Quotient (AQ)',
-            description: 'A self-assessment questionnaire to measure autistic traits in adults',
+            id: 'aq-50',
+            name: 'Autism Spectrum Quotient (AQ-50)',
+            description: '50-item self-assessment questionnaire to measure autistic traits in adults (Baron-Cohen et al., 2001)',
             type: 'questionnaire',
             ageRange: '16+',
             duration: '10-15 minutes',
-            questions: this.getAQQuestions()
+            questions: this.getAQ50Questions()
+        });
+
+        // RAADS-R Test
+        this.registerTest({
+            id: 'raads-r',
+            name: 'RAADS-R',
+            description: 'Ritvo Autism Asperger Diagnostic Scale-Revised (80-item self-report, adults)',
+            type: 'questionnaire',
+            ageRange: '18+',
+            duration: '20-30 minutes',
+            questions: this.getRAADSRQuestions()
+        });
+
+        // ADOS-2 (Screening-Info, kein echter Online-Test)
+        this.registerTest({
+            id: 'ados-2',
+            name: 'ADOS-2 (Screening)',
+            description: 'Autism Diagnostic Observation Schedule, 2nd Edition – Screening-Info, keine Online-Diagnose',
+            type: 'info',
+            ageRange: '1-99',
+            duration: '30-60 minutes',
+            questions: this.getADOS2Info()
         });
 
         // Modified Checklist for Autism in Toddlers (M-CHAT)
@@ -65,7 +87,13 @@ class TestEngine {
     }
 
     getAQQuestions() {
-        return [
+        // Deprecated, use getAQ50Questions
+        return this.getAQ50Questions().slice(0, 5);
+    }
+
+    getAQ50Questions() {
+        // 50 Items, hier als Platzhalter mit 5 echten und 45 Dummy-Fragen
+        const base = [
             {
                 id: 'aq1',
                 text: 'I prefer to do things with others rather than on my own.',
@@ -96,8 +124,67 @@ class TestEngine {
                 category: 'attention_to_detail',
                 reverse: false
             }
-            // Note: Real AQ test has 50 questions, this is a sample
         ];
+        // Dummy-Fragen für 6-50
+        for (let i = 6; i <= 50; i++) {
+            base.push({
+                id: `aq${i}`,
+                text: `AQ-50 Item ${i} (placeholder)`,
+                category: 'misc',
+                reverse: false
+            });
+        }
+        return base;
+    }
+
+    getRAADSRQuestions() {
+        // Beispielhafte 5 von 80 Items, Rest als Platzhalter
+        const base = [
+            {
+                id: 'raads1',
+                text: 'It is difficult for me to understand how other people are feeling when we are talking.',
+                category: 'social',
+            },
+            {
+                id: 'raads2',
+                text: 'I often use words and phrases from movies or television in conversations.',
+                category: 'language',
+            },
+            {
+                id: 'raads3',
+                text: 'I am very sensitive to the way my clothes feel when I touch them.',
+                category: 'sensory',
+            },
+            {
+                id: 'raads4',
+                text: 'I have trouble figuring out what someone is thinking or feeling just by looking at their face.',
+                category: 'social',
+            },
+            {
+                id: 'raads5',
+                text: 'I focus on details rather than the overall idea.',
+                category: 'detail',
+            }
+        ];
+        for (let i = 6; i <= 80; i++) {
+            base.push({
+                id: `raads${i}`,
+                text: `RAADS-R Item ${i} (placeholder)`,
+                category: 'misc',
+            });
+        }
+        return base;
+    }
+
+    getADOS2Info() {
+        // ADOS-2 ist ein Interview, daher nur Info
+        return [
+            {
+                id: 'adosinfo1',
+                text: 'The ADOS-2 is a semi-structured, standardized assessment of communication, social interaction, and play for individuals suspected of having autism. It cannot be performed online. Please consult a professional for a full ADOS-2 assessment.'
+            }
+        ];
+    // <- ENDE DER KLASSE ENTFERNT
     }
 
     getMChatQuestions() {
@@ -164,30 +251,54 @@ class TestEngine {
         const test = this.getTest(testId);
         if (!test) return null;
 
-        switch (test.type) {
-        case 'questionnaire':
-            return this.calculateAQScore(answers);
-        case 'checklist':
-            return this.calculateMChatScore(answers);
-        case 'rating_scale':
-            return this.calculateSRSScore(answers);
+        switch (test.id) {
+        case 'aq-50':
+            return this.calculateAQScore(answers, 50);
+        case 'raads-r':
+            return this.calculateRAADSRScore(answers);
+        case 'ados-2':
+            return { info: 'ADOS-2 cannot be scored online. Please consult a professional.' };
         default:
-            return null;
+            // Fallback auf Typen
+            switch (test.type) {
+                case 'questionnaire':
+                    return this.calculateAQScore(answers);
+                case 'checklist':
+                    return this.calculateMChatScore(answers);
+                case 'rating_scale':
+                    return this.calculateSRSScore(answers);
+                default:
+                    return null;
+            }
         }
     }
 
     calculateAQScore(answers) {
+        // Optionale maxItems für AQ-50
         let score = 0;
-        // Simplified scoring logic
         answers.forEach(answer => {
-            if (answer.value >= 3) score += 1; // Agree/Strongly Agree
+            if (answer.value >= 3) score += 1;
         });
-        
+        const maxScore = answers.length;
         return {
             totalScore: score,
-            maxScore: answers.length,
+            maxScore,
             interpretation: this.interpretAQScore(score),
             details: 'Score based on agreement with autistic traits'
+        };
+    }
+
+    calculateRAADSRScore(answers) {
+        // Sehr vereinfachte Beispiel-Logik: 0-3 Punkte pro Frage, Summe
+        let totalScore = 0;
+        answers.forEach(a => {
+            totalScore += parseInt(a.value) || 0;
+        });
+        return {
+            totalScore,
+            maxScore: 240, // 80 Items * max 3
+            interpretation: totalScore >= 65 ? 'Autism likely' : totalScore >= 50 ? 'Possible autism' : 'Unlikely',
+            details: 'RAADS-R raw score (cutoffs: >65 = likely, >50 = possible)'
         };
     }
 

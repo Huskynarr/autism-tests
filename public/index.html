@@ -8,17 +8,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" role="main">
         <header class="header">
             <div class="container">
                 <div class="header-content">
-                    <h1 class="logo">🧠 Autism Tests Platform</h1>
-                    <nav class="nav">
-                        <a href="#home" class="nav-link active">Home</a>
-                        <a href="#tests" class="nav-link">Tests</a>
-                        <a href="#about" class="nav-link">About</a>
-                        <a href="#resources" class="nav-link">Resources</a>
+                    <h1 class="logo" tabindex="0">🧠 Autism Tests Platform</h1>
+                    <nav class="nav" aria-label="Main Navigation">
+                        <a href="#home" class="nav-link active" data-i18n="nav.home" aria-current="page">Home</a>
+                        <a href="#tests" class="nav-link" data-i18n="nav.tests">Tests</a>
+                        <a href="#about" class="nav-link" data-i18n="nav.about">About</a>
+                        <a href="#resources" class="nav-link" data-i18n="nav.resources">Resources</a>
                     </nav>
+                    <label for="lang-switch" class="sr-only">Sprache wählen</label>
+                    <select id="lang-switch" class="btn btn-secondary" style="margin-left:1rem;" aria-label="Sprache wählen">
+                        <option value="en">EN</option>
+                        <option value="de">DE</option>
+                        <option value="fr">FR</option>
+                        <option value="es">ES</option>
+                    </select>
                 </div>
             </div>
         </header>
@@ -81,26 +88,26 @@
             </section>
 
             <!-- Assessment Section -->
-            <section id="assessment" class="section">
+            <section id="assessment" class="section" aria-labelledby="assessment-title">
                 <div class="container">
-                    <div class="assessment-container">
+                    <div class="assessment-container" role="form" aria-describedby="progress-text">
                         <div class="assessment-header">
-                            <h2 id="assessment-title">Assessment</h2>
-                            <div class="progress-bar">
+                            <h2 id="assessment-title" tabindex="0">Assessment</h2>
+                            <div class="progress-bar" aria-hidden="true">
                                 <div id="progress-fill" class="progress-fill"></div>
                             </div>
-                            <div id="progress-text" class="progress-text">Question 1 of 10</div>
+                            <div id="progress-text" class="progress-text" aria-live="polite">Question 1 of 10</div>
                         </div>
 
-                        <div id="question-container" class="question-container">
+                        <div id="question-container" class="question-container" aria-live="polite">
                             <!-- Questions will be loaded dynamically -->
                         </div>
 
                         <div class="assessment-actions">
-                            <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>
+                            <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled aria-label="Vorherige Frage" tabindex="0">
                                 Previous
                             </button>
-                            <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()" disabled>
+                            <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()" disabled aria-label="Nächste Frage" tabindex="0">
                                 Next
                             </button>
                         </div>
@@ -188,13 +195,34 @@
         </main>
 
         <footer class="footer">
-            <div class="container">
-                <div class="footer-content">
-                    <p>&copy; 2024 Autism Tests Platform. Educational and screening purposes only.</p>
-                    <div class="footer-links">
-                        <a href="#privacy">Privacy Policy</a>
-                        <a href="#terms">Terms of Service</a>
-                        <a href="#contact">Contact</a>
+            <div class="container" role="contentinfo">
+                <div class="footer-content" style="display:flex;flex-wrap:wrap;gap:2rem;align-items:flex-start;justify-content:space-between;">
+                    <div style="flex:2;min-width:220px;">
+                        <div style="font-weight:bold;font-size:1.1rem;">&copy; 2024 Autism Tests Platform</div>
+                        <ul style="list-style:none;padding:0;margin:1rem 0 0 0;line-height:1.7;">
+                            <li><strong>Quellen:</strong></li>
+                            <li>AQ-50: <a href="https://www.autismresearchcentre.com/arc_tests/autism-spectrum-quotient-aq/" target="_blank" rel="noopener">Autism Research Centre</a></li>
+                            <li>M-CHAT: <a href="https://mchatscreen.com/" target="_blank" rel="noopener">mchatscreen.com</a></li>
+                            <li>SRS: <a href="https://www.acer.org/au/srs" target="_blank" rel="noopener">Social Responsiveness Scale</a></li>
+                        </ul>
+                        <div style="margin:1rem 0 0 0;font-size:0.95rem;color:var(--text-muted);">
+                            Dieser Test dient lediglich zur Selbsteinschätzung und ersetzt keine professionelle Diagnose.<br>Alle Angaben sind ohne Gewähr und müssen von Fachpersonal bestätigt werden.
+                        </div>
+                    </div>
+                    <div style="flex:1;min-width:180px;display:flex;flex-direction:column;align-items:flex-end;gap:1rem;">
+                        <a href="https://github.com/Huskynarr/autism-tests" target="_blank" rel="noopener" style="display:inline-block;padding:0.5rem 1.2rem;background:#181e29;color:#fff;border-radius:2rem;font-weight:600;text-decoration:none;box-shadow:0 2px 8px 0 rgb(0 0 0 / 0.08);margin-bottom:0.5rem;transition:background 0.2s;">GitHub&nbsp;↗</a>
+                        <div style="font-size:1.1rem;color:#e11d48;font-weight:bold;display:flex;align-items:center;gap:0.4em;">
+                            <span style="font-size:1.3em;">&#10084;&#65039;</span> Made with <span style="font-size:1.3em;">&#10084;&#65039;</span> by Huskynarr
+                        </div>
+                        <div class="footer-links" style="margin-top:1.5rem;">
+                            <a href="#privacy">Privacy Policy</a>
+                            <a href="#terms">Terms of Service</a>
+                            <a href="#contact">Contact</a>
+                        </div>
+                        <button id="darkmode-toggle" class="btn btn-secondary" style="margin-top:1rem;">🌙 Darkmode umschalten</button>
+                <style>
+                .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+                </style>
                     </div>
                 </div>
             </div>
@@ -202,5 +230,35 @@
     </div>
 
     <script src="/assets/app.js"></script>
+    <script>
+    // Darkmode Toggle (robust, inkl. System-Preference und Button-Text)
+    function setDarkmodeClass(active) {
+        document.documentElement.classList.toggle('darkmode', active);
+    }
+    function updateDarkmodeBtn() {
+        const btn = document.getElementById('darkmode-toggle');
+        if (!btn) return;
+        const isDark = document.documentElement.classList.contains('darkmode');
+        btn.textContent = isDark ? '☀️ White Mode umschalten' : '🌙 Darkmode umschalten';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.getElementById('darkmode-toggle');
+        // Initial: localStorage, sonst System-Preference
+        let dark = localStorage.getItem('darkmode');
+        if (dark === null) {
+            dark = window.matchMedia('(prefers-color-scheme: dark)').matches ? '1' : '0';
+        }
+        setDarkmodeClass(dark === '1');
+        updateDarkmodeBtn();
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                const isDark = !document.documentElement.classList.contains('darkmode');
+                setDarkmodeClass(isDark);
+                localStorage.setItem('darkmode', isDark ? '1' : '0');
+                updateDarkmodeBtn();
+            });
+        }
+    });
+    </script>
 </body>
 </html>
