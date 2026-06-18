@@ -209,8 +209,18 @@ class AutismTestsApp {
         return [
             {
                 id: 'aq-50',
-                name: 'Autism Spectrum Quotient (AQ-50)',
-                description: '50-item self-assessment questionnaire to measure autistic traits in adults (Baron-Cohen et al., 2001)',
+                name: {
+                    en: 'Autism Spectrum Quotient (AQ-50)',
+                    de: 'Autismus-Spektrum-Quotient (AQ-50)',
+                    fr: 'Quotient du Spectre Autistique (AQ-50)',
+                    es: 'Cociente del Espectro Autista (AQ-50)'
+                },
+                description: {
+                    en: '50-item self-assessment questionnaire to measure autistic traits in adults (Baron-Cohen et al., 2001)',
+                    de: '50-Fragen-Selbsttest zur Erfassung autistischer Merkmale bei Erwachsenen (Baron-Cohen et al., 2001)',
+                    fr: 'Questionnaire d’auto-évaluation de 50 items pour mesurer les traits autistiques chez l’adulte (Baron-Cohen et al., 2001)',
+                    es: 'Cuestionario de autoevaluación de 50 ítems para medir rasgos autistas en adultos (Baron-Cohen et al., 2001)'
+                },
                 type: 'questionnaire',
                 ageRange: '16+',
                 duration: '10-15 minutes',
@@ -219,8 +229,18 @@ class AutismTestsApp {
             },
             {
                 id: 'raads-r',
-                name: 'RAADS-R',
-                description: 'Ritvo Autism Asperger Diagnostic Scale-Revised (80-item self-report, adults)',
+                name: {
+                    en: 'RAADS-R',
+                    de: 'RAADS-R',
+                    fr: 'RAADS-R',
+                    es: 'RAADS-R'
+                },
+                description: {
+                    en: 'Ritvo Autism Asperger Diagnostic Scale-Revised (80-item self-report, adults)',
+                    de: 'Ritvo Autism Asperger Diagnostic Scale-Revised (80-Fragen-Selbsttest, Erwachsene)',
+                    fr: 'Échelle diagnostique de l’autisme et du syndrome d’Asperger de Ritvo révisée (auto-évaluation de 80 items, adultes)',
+                    es: 'Escala Diagnóstica de Autismo y Asperger de Ritvo Revisada (autoinforme de 80 ítems, adultos)'
+                },
                 type: 'questionnaire',
                 ageRange: '18+',
                 duration: '20-30 minutes',
@@ -229,8 +249,18 @@ class AutismTestsApp {
             },
             {
                 id: 'ados-2',
-                name: 'ADOS-2 (Screening)',
-                description: 'Autism Diagnostic Observation Schedule, 2nd Edition – Screening-Info, keine Online-Diagnose',
+                name: {
+                    en: 'ADOS-2 (Screening)',
+                    de: 'ADOS-2 (Screening)',
+                    fr: 'ADOS-2 (Dépistage)',
+                    es: 'ADOS-2 (Cribado)'
+                },
+                description: {
+                    en: 'Autism Diagnostic Observation Schedule, 2nd Edition – Screening info, not an online diagnosis',
+                    de: 'Autism Diagnostic Observation Schedule, 2. Auflage – Screening-Info, keine Online-Diagnose',
+                    fr: 'Autism Diagnostic Observation Schedule, 2e édition – Info dépistage, pas de diagnostic en ligne',
+                    es: 'Autism Diagnostic Observation Schedule, 2ª edición – Información de cribado, no diagnóstico online'
+                },
                 type: 'info',
                 ageRange: '1-99',
                 duration: '30-60 minutes',
@@ -381,10 +411,14 @@ class AutismTestsApp {
         const container = document.getElementById('tests-container');
         if (!container) return;
 
-        container.innerHTML = this.availableTests.map(test => `
+        const lang = this.language;
+        container.innerHTML = this.availableTests.map(test => {
+            const name = typeof test.name === 'object' ? (test.name[lang] || test.name['en']) : test.name;
+            const desc = typeof test.description === 'object' ? (test.description[lang] || test.description['en']) : test.description;
+            return `
             <div class="test-card">
-                <h3>${test.name}</h3>
-                <p>${test.description}</p>
+                <h3>${name}</h3>
+                <p>${desc}</p>
                 <div class="test-meta">
                     <span>👥 Age: ${test.ageRange}</span>
                     <span>⏱️ Duration: ${test.duration}</span>
@@ -392,10 +426,11 @@ class AutismTestsApp {
                     <span>📋 Type: ${test.type.replace('_', ' ')}</span>
                 </div>
                 <button class="btn btn-primary" onclick="app.startTest('${test.id}')">
-                    Start ${test.name}
+                    ${this.t('btn.start')} ${name}
                 </button>
             </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     setupNavigation() {
