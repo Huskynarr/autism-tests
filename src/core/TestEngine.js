@@ -261,14 +261,14 @@ class TestEngine {
         default:
             // Fallback auf Typen
             switch (test.type) {
-                case 'questionnaire':
-                    return this.calculateAQScore(answers);
-                case 'checklist':
-                    return this.calculateMChatScore(answers);
-                case 'rating_scale':
-                    return this.calculateSRSScore(answers);
-                default:
-                    return null;
+            case 'questionnaire':
+                return this.calculateAQScore(answers);
+            case 'checklist':
+                return this.calculateMChatScore(answers);
+            case 'rating_scale':
+                return this.calculateSRSScore(answers);
+            default:
+                return null;
             }
         }
     }

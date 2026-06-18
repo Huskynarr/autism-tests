@@ -16,7 +16,7 @@ class AutismAssessment {
         const sessionId = this.generateSessionId();
         const session = {
             id: sessionId,
-            testId: options.testId || 'aq-test',
+            testId: options.testId || 'aq-50',
             participantInfo: options.participantInfo || {},
             currentQuestionIndex: 0,
             answers: [],
@@ -56,7 +56,8 @@ class AutismAssessment {
             },
             currentQuestion,
             status: session.status,
-            canSubmit: session.currentQuestionIndex >= totalQuestions
+            canSubmit: session.currentQuestionIndex >= totalQuestions,
+            results: session.results
         };
     }
 

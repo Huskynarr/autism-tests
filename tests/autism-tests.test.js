@@ -25,9 +25,9 @@ describe('Autism Tests Platform', () => {
         });
 
         test('should return AQ test details', () => {
-            const aqTest = testEngine.getTest('aq-test');
+            const aqTest = testEngine.getTest('aq-50');
             expect(aqTest).toBeDefined();
-            expect(aqTest.name).toBe('Autism Spectrum Quotient (AQ)');
+            expect(aqTest.name).toBe('Autism Spectrum Quotient (AQ-50)');
             expect(aqTest.questions.length).toBeGreaterThan(0);
         });
 
@@ -47,7 +47,7 @@ describe('Autism Tests Platform', () => {
                 { value: '3', questionId: 'aq5' }
             ];
 
-            const score = testEngine.calculateScore('aq-test', answers);
+            const score = testEngine.calculateScore('aq-50', answers);
             expect(score).toHaveProperty('totalScore');
             expect(score).toHaveProperty('interpretation');
             expect(typeof score.totalScore).toBe('number');
@@ -70,7 +70,7 @@ describe('Autism Tests Platform', () => {
     describe('AutismAssessment', () => {
         test('should start a new assessment session', () => {
             const sessionId = assessment.startSession({
-                testId: 'aq-test',
+                testId: 'aq-50',
                 participantInfo: { age: 25 }
             });
 
@@ -79,18 +79,18 @@ describe('Autism Tests Platform', () => {
         });
 
         test('should retrieve session information', () => {
-            const sessionId = assessment.startSession({ testId: 'aq-test' });
+            const sessionId = assessment.startSession({ testId: 'aq-50' });
             const session = assessment.getSession(sessionId);
 
             expect(session).toBeDefined();
             expect(session.sessionId).toBe(sessionId);
-            expect(session.testInfo).toHaveProperty('id', 'aq-test');
+            expect(session.testInfo).toHaveProperty('id', 'aq-50');
             expect(session.progress).toHaveProperty('currentQuestion', 1);
             expect(session.currentQuestion).toBeDefined();
         });
 
         test('should handle answer submission', () => {
-            const sessionId = assessment.startSession({ testId: 'aq-test' });
+            const sessionId = assessment.startSession({ testId: 'aq-50' });
             const result = assessment.submitAnswer(sessionId, { value: '3' });
 
             expect(result).toHaveProperty('success', true);
@@ -98,8 +98,8 @@ describe('Autism Tests Platform', () => {
         });
 
         test('should complete assessment when all questions answered', () => {
-            const sessionId = assessment.startSession({ testId: 'aq-test' });
-            const test = testEngine.getTest('aq-test');
+            const sessionId = assessment.startSession({ testId: 'aq-50' });
+            const test = testEngine.getTest('aq-50');
             
             // Answer all questions
             for (let i = 0; i < test.questions.length; i++) {
@@ -112,13 +112,13 @@ describe('Autism Tests Platform', () => {
         });
 
         test('should generate session statistics', () => {
-            assessment.startSession({ testId: 'aq-test' });
+            assessment.startSession({ testId: 'aq-50' });
             assessment.startSession({ testId: 'm-chat' });
             
             const stats = assessment.getSessionStats();
             expect(stats.totalSessions).toBe(2);
             expect(stats.activeSessions).toBe(2);
-            expect(stats.testDistribution).toHaveProperty('aq-test', 1);
+            expect(stats.testDistribution).toHaveProperty('aq-50', 1);
             expect(stats.testDistribution).toHaveProperty('m-chat', 1);
         });
 
@@ -145,7 +145,7 @@ describe('Autism Tests Platform', () => {
     describe('Integration Tests', () => {
         test('should complete full AQ assessment workflow', () => {
             // Start session
-            const sessionId = assessment.startSession({ testId: 'aq-test' });
+            const sessionId = assessment.startSession({ testId: 'aq-50' });
             expect(sessionId).toBeDefined();
 
             // Get initial session state
@@ -153,7 +153,7 @@ describe('Autism Tests Platform', () => {
             expect(session.progress.currentQuestion).toBe(1);
 
             // Answer all questions
-            const test = testEngine.getTest('aq-test');
+            const test = testEngine.getTest('aq-50');
             for (let i = 0; i < test.questions.length; i++) {
                 const result = assessment.submitAnswer(sessionId, { value: '3' });
                 expect(result.success).toBe(true);

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autism Tests Platform</title>
-    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="assets/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -229,7 +229,26 @@
         </footer>
     </div>
 
-    <script src="/assets/app.js"></script>
+    <!-- Compatibility shim for using Node.js CommonJS modules in the browser -->
+    <script>
+    window.module = { exports: {} };
+    window.require = function(path) {
+        if (path.includes('TestEngine')) return window.TestEngine;
+        if (path.includes('AutismAssessment')) return window.AutismAssessment;
+        return {};
+    };
+    </script>
+    <script src="src/core/TestEngine.js"></script>
+    <script>
+    window.TestEngine = window.module.exports;
+    window.module.exports = {};
+    </script>
+    <script src="src/assessment/AutismAssessment.js"></script>
+    <script>
+    window.AutismAssessment = window.module.exports;
+    </script>
+    <script src="assets/api-mock.js"></script>
+    <script src="assets/app.js"></script>
     <script>
     // Darkmode Toggle (robust, inkl. System-Preference und Button-Text)
     function setDarkmodeClass(active) {

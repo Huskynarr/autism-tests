@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * Autism Tests Platform - Main Entry Point
  * A comprehensive platform for autism assessment and testing tools

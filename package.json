@@ -5,11 +5,11 @@
   "main": "src/index.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "cp -r assets public/assets && live-server public --port=3000 --no-browser",
+    "dev": "cp -r assets public/assets && cp -r src public/src && live-server public --port=3000 --no-browser",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint src/ tests/",
-    "build": "rm -rf dist && mkdir dist && cp -r public/* dist/ && cp -r assets dist/",
+    "build": "rm -rf dist && mkdir dist && cp -r public/* dist/ && cp -r assets dist/ && cp -r src dist/",
     "serve": "live-server dist --port=5000 --no-browser"
   },
   "keywords": [

@@ -79,3 +79,7 @@ Thumbs.db
 tmp/
 temp/
 .tmp/
+
+# Dev build assets/sources in public
+public/assets/
+public/src/
