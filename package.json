@@ -9,7 +9,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint src/ tests/",
-    "build": "rm -rf dist && mkdir dist && cp -r public/* dist/ && cp -r assets dist/ && cp -r src dist/",
+    "build": "rm -rf dist && mkdir dist && cp -r public/* dist/ && cp -f public/.nojekyll dist/ && cp -r assets dist/ && cp -r src dist/",
     "serve": "live-server dist --port=5000 --no-browser"
   },
   "keywords": [

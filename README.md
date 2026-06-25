@@ -19,6 +19,19 @@ A comprehensive web-based platform for autism spectrum disorder (ASD) assessment
 
 ## 🚀 Quick Start
 
+### 🌐 Use it live (GitHub Pages)
+
+The platform runs **entirely in your browser** — no server, no installation:
+
+👉 **https://huskynarr.github.io/autism-tests/**
+
+Every push to `main` automatically lints, tests, builds and publishes the site
+via the GitHub Actions workflow in `.github/workflows/deploy.yml`.
+
+> **One-time repository setup:** go to **Settings → Pages → Build and
+> deployment → Source** and select **"GitHub Actions"**. After the next push to
+> `main` the site is live at the URL above.
+
 ## 🏗️ Build & Deploy (GitHub Pages)
 
 ### Statisches Deployment (empfohlen für GitHub Pages)
